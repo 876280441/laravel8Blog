@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class BlogComment extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * 评论
+     */
+    protected $comment;
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct($comment)
+    {
+        //接收评论
+        $this->comment = $comment;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->view('emails.blog-comment',['comment'=>$this->comment]);
+    }
+}
